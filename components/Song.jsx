@@ -9,17 +9,28 @@ const Song = ({ sno, track, setGlobalCurrentSongId, setGlobalIsTrackPlaying, set
     async function playSong(track) {
         setGlobalCurrentSongId(track.id)
         setGlobalIsTrackPlaying(true)
+        console.log(session.accessToken);
         if (session && session.accessToken) {
-            const response = await fetch("https://api.spotify.com/v1/me/player/play", {
-                method: "PUT",
+            // const response = await fetch("https://api.spotify.com/v1/me/player/play", {
+            //     method: "PUT",
+            //     headers: {
+            //         Authorization: `Bearer ${session.accessToken}`
+            //     },
+            //     body: JSON.stringify({
+            //         uris: [track.uri]
+            //     })
+            // })
+            // console.log("on play", response.status)
+            const response = await fetch("https://api.spotify.com/v1/me/player/devices", {
+                method: "GET",
                 headers: {
                     Authorization: `Bearer ${session.accessToken}`
                 },
-                body: JSON.stringify({
-                    uris: [track.uri]
-                })
+                // body: JSON.stringify({
+                //     uris: [track.uri]
+                // })
             })
-            console.log("on play", response.status)
+            console.log("on play", response)
         }
     }
 
